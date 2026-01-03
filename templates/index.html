@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarValue AI - Smart Car Price Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-car-side me-2"></i>CarValue AI
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#predict">Predict</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#compare">Compare</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#insights">Insights</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-3">
+                        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Theme">
+                            <i class="fas fa-moon" id="themeIcon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="hero-badge mb-3">
+                        <i class="fas fa-star text-warning"></i> #1 AI-Powered Car Valuation
+                    </div>
+                    <h1 class="display-3 fw-bold mb-4">Know Your Car's <span class="gradient-text">True Value</span></h1>
+                    <p class="lead mb-4">Get instant, accurate car price predictions powered by advanced AI. Make smarter buying and selling decisions.</p>
+                    <div class="d-flex gap-3 mb-4">
+                        <button class="btn btn-primary btn-lg px-4" onclick="scrollToPredict()">
+                            <i class="fas fa-calculator me-2"></i>Get Started
+                        </button>
+                        <button class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#demoModal">
+                            <i class="fas fa-play me-2"></i>Watch Demo
+                        </button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <h3 class="fw-bold mb-0">50K+</h3>
+                            <p class="mb-0">Predictions</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="fw-bold mb-0">95%</h3>
+                            <p class="mb-0">Accuracy</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="fw-bold mb-0">4.9★</h3>
+                            <p class="mb-0">Rating</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800" alt="Car" class="img-fluid rounded-4 shadow-lg">
+                        <div class="floating-card">
+                            <i class="fas fa-chart-line text-success fs-3 mb-2"></i>
+                            <h5 class="mb-1">Live Market Data</h5>
+                            <p class="mb-0 small">Updated every hour</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h5 class="fw-bold">Instant Results</h5>
+                        <p class="mb-0">Get predictions in under 2 seconds</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h5 class="fw-bold">100% Secure</h5>
+                        <p class="mb-0">Your data is encrypted & safe</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h5 class="fw-bold">Mobile Ready</h5>
+                        <p class="mb-0">Works on all devices</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h5 class="fw-bold">24/7 Support</h5>
+                        <p class="mb-0">Always here to help</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prediction Section -->
+    <section id="predict" class="prediction-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Get Your Car's Value</h2>
+                <p class="lead text-muted">Fill in the details below for an instant AI-powered valuation</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="prediction-card">
+                        <form id="predictionForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold"><i class="fas fa-calendar text-primary me-2"></i>Registration Year</label>
+                                    <input type="number" class="form-control form-control-lg" id="year" min="2000" max="2024" placeholder="2020" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold"><i class="fas fa-cog text-primary me-2"></i>Engine (cc)</label>
+                                    <input type="number" class="form-control form-control-lg" id="engine" min="500" max="5000" placeholder="1500" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold"><i class="fas fa-gears text-primary me-2"></i>Transmission</label>
+                                    <select class="form-select form-select-lg" id="transmission" required>
+                                        <option value="">Choose...</option>
+                                        <option value="Manual">Manual</option>
+                                        <option value="Automatic">Automatic</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold"><i class="fas fa-road text-primary me-2"></i>Kilometers Driven</label>
+                                    <input type="number" class="form-control form-control-lg" id="kms" min="0" placeholder="50000" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold"><i class="fas fa-user text-primary me-2"></i>Owner Type</label>
+                                    <select class="form-select form-select-lg" id="owner" required>
+                                        <option value="">Choose...</option>
+                                        <option value="First Owner">First Owner</option>
+                                        <option value="Second Owner">Second Owner</option>
+                                        <option value="Third Owner">Third Owner</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold"><i class="fas fa-gas-pump text-primary me-2"></i>Fuel Type</label>
+                                    <select class="form-select form-select-lg" id="fuel" required>
+                                        <option value="">Choose...</option>
+                                        <option value="Petrol">Petrol</option>
+                                        <option value="Diesel">Diesel</option>
+                                        <option value="CNG">CNG</option>
+                                        <option value="Electric">Electric</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold"><i class="fas fa-bolt text-primary me-2"></i>Power (bhp)</label>
+                                    <input type="number" class="form-control form-control-lg" id="power" step="0.1" placeholder="88.5" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold"><i class="fas fa-chair text-primary me-2"></i>Seats</label>
+                                    <select class="form-select form-select-lg" id="seats" required>
+                                        <option value="">Choose...</option>
+                                        <option value="2">2</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="7">7</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold"><i class="fas fa-tachometer-alt text-primary me-2"></i>Mileage (kmpl)</label>
+                                    <input type="number" class="form-control form-control-lg" id="mileage" step="0.1" placeholder="21.4" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label fw-semibold"><i class="fas fa-car-side text-primary me-2"></i>Body Type</label>
+                                    <select class="form-select form-select-lg" id="body" required>
+                                        <option value="">Choose...</option>
+                                        <option value="Hatchback">Hatchback</option>
+                                        <option value="Sedan">Sedan</option>
+                                        <option value="SUV">SUV</option>
+                                        <option value="MUV">MUV</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-4 py-3">
+                                <i class="fas fa-magic me-2"></i>Calculate Value Now
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="result-card" id="resultCard">
+                        <div class="text-center mb-4">
+                            <div class="result-icon-lg mb-3">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4 class="fw-bold">Estimated Value</h4>
+                        </div>
+                        <div class="price-display-lg" id="priceDisplay">₹ 0.00 Lakh</div>
+                        <div class="price-range-badge" id="priceRange">Enter details to predict</div>
+                        
+                        <div id="insightsSection" style="display:none;">
+                            <hr class="my-4">
+                            <h6 class="fw-bold mb-3"><i class="fas fa-lightbulb text-warning me-2"></i>Smart Insights</h6>
+                            <div id="insightsList"></div>
+                            
+                            <div class="info-grid mt-3">
+                                <div class="info-item">
+                                    <span class="text-muted">Car Age</span>
+                                    <strong id="carAge">-</strong>
+                                </div>
+                                <div class="info-item">
+                                    <span class="text-muted">Depreciation</span>
+                                    <strong id="depreciation" class="text-danger">-</strong>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-outline-primary w-100 mt-3" onclick="downloadReport()">
+                                <i class="fas fa-download me-2"></i>Download Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tip-card mt-3">
+                        <i class="fas fa-info-circle text-info me-2"></i>
+                        <small>Prices are based on current market trends and may vary by location</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Tool -->
+    <section id="compare" class="compare-section py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Compare Multiple Cars</h2>
+                <p class="lead text-muted">Make better decisions by comparing different options</p>
+            </div>
+            <div class="comparison-tool">
+                <div class="text-center py-5">
+                    <i class="fas fa-balance-scale fs-1 text-muted mb-3"></i>
+                    <p class="text-muted">Predict at least 2 cars to enable comparison</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Insights -->
+    <section id="insights" class="insights-section py-5">
+        <div class="container">
+            <h2 class="display-5 fw-bold text-center mb-5">Market Insights</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="insight-card">
+                        <i class="fas fa-trending-up text-success fs-2 mb-3"></i>
+                        <h5 class="fw-bold">Best Time to Sell</h5>
+                        <p>Cars depreciate 15-20% in first year. Sell within 3-5 years for best value.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="insight-card">
+                        <i class="fas fa-tools text-primary fs-2 mb-3"></i>
+                        <h5 class="fw-bold">Maintenance Matters</h5>
+                        <p>Well-maintained cars with service records fetch 10-15% higher prices.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="insight-card">
+                        <i class="fas fa-road text-warning fs-2 mb-3"></i>
+                        <h5 class="fw-bold">Mileage Impact</h5>
+                        <p>Keep annual mileage under 15,000 km to maintain better resale value.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section py-5">
+        <div class="container text-center">
+            <h2 class="display-5 fw-bold mb-4">Ready to Know Your Car's Worth?</h2>
+            <p class="lead mb-4">Join thousands of smart car owners making informed decisions</p>
+            <button class="btn btn-light btn-lg px-5" onclick="scrollToPredict()">
+                Get Started Free <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="fw-bold mb-3"><i class="fas fa-car-side me-2"></i>CarValue AI</h4>
+                    <p class="footer-text mb-4">AI-powered car price prediction platform trusted by thousands. Get instant, accurate valuations powered by advanced machine learning.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/Ankit2006Raj" target="_blank" class="social-link" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/ankit-raj-226a36309" target="_blank" class="social-link" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:ankit9905163014@gmail.com" class="social-link" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="footer-links">
+                        <li><a href="#predict"><i class="fas fa-chevron-right me-2"></i>Predict Price</a></li>
+                        <li><a href="#compare"><i class="fas fa-chevron-right me-2"></i>Compare Cars</a></li>
+                        <li><a href="#insights"><i class="fas fa-chevron-right me-2"></i>Market Insights</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3">Features</h6>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-check me-2"></i>AI Predictions</a></li>
+                        <li><a href="#"><i class="fas fa-check me-2"></i>Market Analysis</a></li>
+                        <li><a href="#"><i class="fas fa-check me-2"></i>Price History</a></li>
+                        <li><a href="#"><i class="fas fa-check me-2"></i>Download Reports</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3">Contact Info</h6>
+                    <div class="contact-info">
+                        <p class="mb-2">
+                            <i class="fas fa-envelope me-2"></i>
+                            <a href="mailto:ankit9905163014@gmail.com">ankit9905163014@gmail.com</a>
+                        </p>
+                        <p class="mb-2">
+                            <i class="fab fa-github me-2"></i>
+                            <a href="https://github.com/Ankit2006Raj" target="_blank">Ankit2006Raj</a>
+                        </p>
+                        <p class="mb-0">
+                            <i class="fab fa-linkedin me-2"></i>
+                            <a href="https://www.linkedin.com/in/ankit-raj-226a36309" target="_blank">Ankit Raj</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr class="footer-divider my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0 footer-copyright">&copy; 2024 CarValue AI. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0 footer-tech">
+                        <i class="fas fa-code me-2"></i>Built with <span class="text-danger">❤</span> using Python & ML
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner-border text-light mb-3" style="width: 3rem; height: 3rem;"></div>
+            <p class="text-light">Analyzing market data...</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
