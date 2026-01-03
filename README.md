@@ -18,6 +18,9 @@
 ## 📋 Overview
 
 CarValue AI is an intelligent web application that predicts used car prices with 95% accuracy using machine learning. Built with Flask and scikit-learn, it analyzes multiple vehicle parameters including year, mileage, engine capacity, fuel type, and more to provide instant market valuations.
+<img width="1327" height="544" alt="image" src="https://github.com/user-attachments/assets/70b7db24-f618-4ed0-8383-eb53076a26de" />
+<img width="1345" height="634" alt="image" src="https://github.com/user-attachments/assets/387ba932-9d8b-409e-ace2-4f45890f20e8" />
+
 
 ### ✨ Key Highlights
 
